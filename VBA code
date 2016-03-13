@@ -1,0 +1,65 @@
+Sub Macro3()
+'
+' Macro3 Macro
+'
+
+'
+    Dim counter As Integer
+    counter = 0
+    Dim overflow As Integer
+    overflow = Cells(1, 10)
+    Dim i As Integer, j As Integer
+    For j = 1 To 5
+        For i = 1 To 5
+            If Cells(i, j) >= overflow Then Cells(i, j).Interior.ColorIndex = 3
+            ' If Cells(i, j) > overflow Then Cells(i + 6, j) = "overfill"
+            If Cells(i, j) >= overflow Then
+                Range("I27").Select
+                Selection.End(xlUp).Select
+                ActiveCell.Offset(1, 0).Activate
+                ActiveCell.Value = "OverFill at row " & i & " col " & j
+            End If
+            If Cells(i, j) >= overflow Then counter = counter + 1
+            If Cells(i, j) <= overflow Then Cells(i + 6, j).ClearContents
+            If Cells(i, j) <= overflow Then Cells(i + 6, j).Interior.ColorIndex = 0
+            
+        Next i
+    Next j
+    Cells(9, 7) = counter
+    counter = 0
+End Sub
+
+Sub Macro4()
+Dim row As Integer, col As Integer
+For col = 1 To 5
+    For row = 1 To 11
+        Cells(row, col).Interior.ColorIndex = 0
+        If row > 5 Then Cells(row, col).ClearContents
+        Next row
+    Next col
+Cells(11, 1).ClearContents
+Cells(9, 7).ClearContents
+Dim i As Integer
+For i = 10 To 50
+    Cells(i, 9).ClearContents
+    Next i
+    
+End Sub
+
+Sub Macro6()
+'
+' Macro6 Macro
+'
+
+'
+    Dim row As Integer
+    Dim col As Integer
+    
+    For col = 1 To 5
+        For row = 1 To 5
+            Cells(row, col).FormulaR1C1 = "=RANDBETWEEN(1,5)"
+            Cells(row, col) = Cells(row, col)
+            Next row
+        Next col
+               
+End Sub
